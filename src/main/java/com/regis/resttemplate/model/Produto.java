@@ -5,9 +5,11 @@ import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Produto {
 
+	@Id
 	private long id;
 	
 	private String nome;
