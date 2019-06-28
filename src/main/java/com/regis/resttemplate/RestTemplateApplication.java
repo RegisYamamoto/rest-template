@@ -18,7 +18,9 @@ public class RestTemplateApplication {
 //				"  \"quantidade\": 10,\n" + 
 //				"  \"valor\": 99\n" + 
 //				"}");
-		restUtils.get(428);
+		//restUtils.get(428);
+		
+		restUtils.get();
 	}
 	
 

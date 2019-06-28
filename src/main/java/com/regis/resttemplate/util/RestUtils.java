@@ -1,6 +1,7 @@
 package com.regis.resttemplate.util;
 
 import java.nio.charset.Charset;
+import java.util.Arrays;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +18,12 @@ public class RestUtils {
 	
 	private static final Logger log = LoggerFactory.getLogger(RestUtils.class);
 	
+	public void get() {
+		RestTemplate restTemplate = new RestTemplate();
+        Produto[] produtos = restTemplate.getForObject("https://produtos-apirest.herokuapp.com/api/produtos/", Produto[].class);
+        Arrays.asList(produtos).forEach(System.out::println);
+	}
+	
 	public void get(long id) {
 		RestTemplate restTemplate = new RestTemplate();
         Produto produto = restTemplate.getForObject("https://produtos-apirest.herokuapp.com/api/produto/" + id, Produto.class);
@@ -29,7 +36,6 @@ public class RestUtils {
 		RestTemplate restTemplate = new RestTemplate();
 		restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
 		return restTemplate.exchange(String.format("https://produtos-apirest.herokuapp.com/api/produto/"), HttpMethod.PUT, request, String.class);
-		
 	}
 
 	private HttpHeaders getHttpHeadersAuth() {
