@@ -36,13 +36,14 @@ public class RestUtil {
 		return restTemplate.exchange(String.format(URL1), HttpMethod.GET, request, String.class);
 	}
 	
-	public HttpEntity<String> buscarPorId(long id) {
+	public String buscarPorId(long id) {
 		HttpHeaders headers = getHttpHeadersAuth();
 		HttpEntity<String> request = new HttpEntity<>(headers);
 		
 		RestTemplate restTemplate = new RestTemplate();
 		restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
-		return restTemplate.exchange(String.format(URL2 + id), HttpMethod.GET, request, String.class);
+		//return restTemplate.exchange(String.format(URL2 + id), HttpMethod.GET, request, String.class); // Utilizado para quando precisa usar proxy
+		return restTemplate.getForObject(String.format(URL2 + id), String.class);
 	}
 	
 //	public ResponseEntity<String> put(String json) {
