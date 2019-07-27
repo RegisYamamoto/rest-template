@@ -1,27 +1,19 @@
 package com.regis.resttemplate.repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.regis.resttemplate.model.Produto;
 
 @Repository
-public class ProdutoRepository {
-
-	@PersistenceContext
-    private EntityManager entityManager;
+public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 	
+	@Modifying
 	@Transactional
-	public void insertWithQuery(Produto produto) {
-	    entityManager.createNativeQuery("INSERT INTO produto (id, nome, quantidade, valor) VALUES (?,?,?,?)")
-	      .setParameter(1, produto.getId())
-	      .setParameter(2, produto.getNome())
-	      .setParameter(3, produto.getQuantidade())
-	      .setParameter(4, produto.getValor())
-	      .executeUpdate();
-	}
+    @Query(value = "insert into produto (id, nome, quantidade, valor) values (?1, ?2, ?3, ?4)", nativeQuery=true)
+    void inserirProduto(long id, String nome, long quantidade, double valor);
 	
 }

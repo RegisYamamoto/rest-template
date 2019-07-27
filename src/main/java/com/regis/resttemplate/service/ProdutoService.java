@@ -19,21 +19,19 @@ public class ProdutoService {
 	private ProdutoRepository produtoRepository;
 
 	@Scheduled(fixedDelay = 5000)
-	public void buscarProdutoUnico() {
+	public void buscarEInserirProdutoUnico() {
 		RestUtil restUtil = new RestUtil();
 		HttpEntity<String> json = restUtil.buscarPorId(428);
 		String jsonString = json.toString();
 		System.out.println(jsonString);
 	
 		Gson gson = new Gson();
-		
-		try {
-			Produto produto = gson.fromJson(jsonString, Produto.class);
-			System.out.println(produto);
-			produtoRepository.insertWithQuery(produto);
-		} catch (Exception e) {
-			e.getStackTrace();
-		}
+
+		Produto produto = gson.fromJson(jsonString, Produto.class);
+		//System.out.println(produto);
+		produtoRepository.inserirProduto(produto.getId(), produto.getNome(), produto.getQuantidade(), produto.getValor());
+		//System.out.println("depois de inserirProduto");
+
 	}
 	
 }

@@ -1,5 +1,6 @@
 package com.regis.resttemplate.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -10,10 +11,16 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Produto {
 
 	@Id
+	@Column(name = "id")
 	private long id;
 	
+	@Column(name = "nome")
 	private String nome;
+	
+	@Column(name = "quantidade")
 	private long quantidade;
+	
+	@Column(name = "valor")
 	private double valor;
 	
 	public long getId() {
