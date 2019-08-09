@@ -2,11 +2,16 @@ package com.regis.resttemplate.util;
 
 import java.nio.charset.Charset;
 
+import org.apache.http.HttpHost;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.ClientHttpRequestFactory;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.client.RestTemplate;
@@ -46,13 +51,13 @@ public class RestUtil {
 		return restTemplate.getForObject(String.format(URL2 + id), String.class);
 	}
 	
-//	public ResponseEntity<String> put(String json) {
-//		HttpHeaders headers = getHttpHeadersAuth();
-//		HttpEntity<String> request = new HttpEntity<>(json, headers);
-//		RestTemplate restTemplate = new RestTemplate();
-//		restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
-//		return restTemplate.exchange(String.format("https://produtos-apirest.herokuapp.com/api/produto/"), HttpMethod.PUT, request, String.class);
-//	}
+	public ResponseEntity<String> inserirJsonNaAPI(String json) {
+		HttpHeaders headers = getHttpHeadersAuth();
+		HttpEntity<String> request = new HttpEntity<>(json, headers);
+		RestTemplate restTemplate = new RestTemplate(/*getClientHttpRequestFactory()*/);
+		restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
+		return restTemplate.exchange(String.format("https://produtos-apirest.herokuapp.com/api/produto/"), HttpMethod.PUT, request, String.class);
+	}
 
 	private HttpHeaders getHttpHeadersAuth() {
 		return new HttpHeaders() {
@@ -64,5 +69,15 @@ public class RestUtil {
 			}
 		};
 	}
+	
+//	private ClientHttpRequestFactory getClientHttpRequestFactory() {
+//		HttpComponentsClientHttpRequestFactory clientHttpRequestFactory = 
+//				new HttpComponentsClientHttpRequestFactory(
+//						HttpClientBuilder.create()
+//						.setProxy(new HttpHost("proxy.muffato.com.br", 3128, "http"))
+//						.build());
+//		clientHttpRequestFactory.setConnectTimeout(500000);
+//		return clientHttpRequestFactory;
+//	}
 
 }

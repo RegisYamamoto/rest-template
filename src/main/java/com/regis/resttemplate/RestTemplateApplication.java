@@ -21,7 +21,7 @@ public class RestTemplateApplication {
 		System.out.println(restUtil.buscarTodos());
 	}
 	
-	//@Scheduled(fixedDelay = 10000)
+	@Scheduled(fixedDelay = 10000)
 	public void mostrarProdutoUnico() {
 		RestUtil restUtil = new RestUtil();
 		System.out.println(restUtil.buscarPorId(428));

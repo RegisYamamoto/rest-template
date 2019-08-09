@@ -17,8 +17,8 @@ public class ProdutoService {
 	@Autowired
 	private ProdutoRepository produtoRepository;
 
-	@Scheduled(fixedDelay = 10000)
-	public void buscarEInserirProdutoUnico() {
+	//@Scheduled(fixedDelay = 10000)
+	public void buscarEInserirProdutoUnicoNoBanco() {
 		RestUtil restUtil = new RestUtil();
 		String json = restUtil.buscarPorId(428);
 	
@@ -26,7 +26,12 @@ public class ProdutoService {
 
 		Produto produto = gson.fromJson(json, Produto.class);
 		produtoRepository.inserirProduto(produto.getId(), produto.getNome(), produto.getQuantidade(), produto.getValor());
-
+	}
+	
+	//@Scheduled(fixedDelay = 10000)
+	public void inserirJsonNaAPI() {
+		RestUtil restUtil = new RestUtil();
+		restUtil.inserirJsonNaAPI("");
 	}
 	
 }
