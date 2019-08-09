@@ -51,12 +51,12 @@ public class RestUtil {
 		return restTemplate.getForObject(String.format(URL2 + id), String.class);
 	}
 	
-	public ResponseEntity<String> inserirJsonNaAPI(String json) {
+	public ResponseEntity<Produto> inserirJsonNaAPI(Produto produto) {
 		HttpHeaders headers = getHttpHeadersAuth();
-		HttpEntity<String> request = new HttpEntity<>(json, headers);
+		HttpEntity<Produto> request = new HttpEntity<>(produto, headers);
 		RestTemplate restTemplate = new RestTemplate(/*getClientHttpRequestFactory()*/);
 		restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
-		return restTemplate.exchange(String.format("https://produtos-apirest.herokuapp.com/api/produto/"), HttpMethod.PUT, request, String.class);
+		return restTemplate.exchange(String.format("https://produtos-apirest.herokuapp.com/api/produto/"), HttpMethod.POST, request, Produto.class);
 	}
 
 	private HttpHeaders getHttpHeadersAuth() {

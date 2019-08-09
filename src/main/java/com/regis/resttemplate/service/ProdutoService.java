@@ -10,6 +10,8 @@ import com.regis.resttemplate.model.Produto;
 import com.regis.resttemplate.repository.ProdutoRepository;
 import com.regis.resttemplate.util.RestUtil;
 
+import javassist.NotFoundException;
+
 @Service
 @EnableScheduling
 public class ProdutoService {
@@ -29,9 +31,10 @@ public class ProdutoService {
 	}
 	
 	//@Scheduled(fixedDelay = 10000)
-	public void inserirJsonNaAPI() {
+	public void inserirJsonNaAPI() throws NotFoundException {
+		Produto produtoRecuperado = produtoRepository.findById(1L).orElseThrow(() -> new NotFoundException("NAO EXISTE"));
 		RestUtil restUtil = new RestUtil();
-		restUtil.inserirJsonNaAPI("");
+		restUtil.inserirJsonNaAPI(produtoRecuperado);
 	}
 	
 }
