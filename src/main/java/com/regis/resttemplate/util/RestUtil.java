@@ -51,7 +51,7 @@ public class RestUtil {
 		return restTemplate.getForObject(String.format(URL2 + id), String.class);
 	}
 	
-	public ResponseEntity<Produto> inserirJsonNaAPI(Produto produto) {
+	public ResponseEntity<Produto> pegarDoBancoEInserirNaAPI(Produto produto) {
 		HttpHeaders headers = getHttpHeadersAuth();
 		HttpEntity<Produto> request = new HttpEntity<>(produto, headers);
 		RestTemplate restTemplate = new RestTemplate(/*getClientHttpRequestFactory()*/);

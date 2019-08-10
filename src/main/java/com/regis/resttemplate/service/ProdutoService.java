@@ -30,11 +30,11 @@ public class ProdutoService {
 		produtoRepository.inserirProduto(produto.getId(), produto.getNome(), produto.getQuantidade(), produto.getValor());
 	}
 	
-	//@Scheduled(fixedDelay = 10000)
-	public void inserirJsonNaAPI() throws NotFoundException {
+	@Scheduled(fixedDelay = 10000)
+	public void pegarDoBancoEInserirNaAPI() throws NotFoundException {
 		Produto produtoRecuperado = produtoRepository.findById(1L).orElseThrow(() -> new NotFoundException("NAO EXISTE"));
 		RestUtil restUtil = new RestUtil();
-		restUtil.inserirJsonNaAPI(produtoRecuperado);
+		restUtil.pegarDoBancoEInserirNaAPI(produtoRecuperado);
 	}
 	
 }
